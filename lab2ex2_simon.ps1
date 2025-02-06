@@ -10,4 +10,4 @@
 # 2. Where-Object { $_.Name -eq 'TestProcessus' } : Filtre pour ne conserver que les processus ayant le nom "TestProcessus".
 # 3. kill -force : Termine de force les processus filtrés.
 
-Get-Process | Where-Object { $_.Name -match '^Test' -and $_.WS/1MB -gt 50 } | kill -force
+Get-Process | Where-Object { $_.Name -match '^Test' -and $_.WS -gt 50 } | kill -force

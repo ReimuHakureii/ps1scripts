@@ -4,7 +4,7 @@ $timeout = New-TimeSpan -Minutes 60
 $sw = [Diagnostics.Stopwatch]::StartNew()
 # Boucle fonctionnant jusqu'à l'atteinte de la limite de temps
 while ($sw.Elapsed -lt $timeout) {
-    Get-Process | Where-Object { $_.Name -match '^Test' -and $_.WS/1MB -gt 50 } | kill -force
+    Get-Process | Where-Object { $_.Name -match '^Test' -and $_.WS -gt 50 } | kill -force
     #Temps entre chaque boucle
     Start-Sleep -Seconds 30
 }
