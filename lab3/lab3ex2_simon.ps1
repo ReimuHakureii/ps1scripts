@@ -18,8 +18,8 @@ New-LocalUser -Name $UserName `
               # L'utilisateur ne peut pas changer son mot de passe
               -UserMayNotChangePassword
 
-# Ajout du nouvel usager au groupe "Utilisateurs".
+# Ajout du nouvel usager au groupe Utilisateurs
 Add-LocalGroupMember -Group "Utilisateurs" -Member $UserName
 
-# Message de confirmation.
+# Message de confirmation
 Write-Host "Compte '$UserName' créé et ajouté au groupe Utilisateurs."
