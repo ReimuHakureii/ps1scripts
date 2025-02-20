@@ -1,19 +1,15 @@
-# Exercice 1
-Param(
-    [Parameter(Mandatory = $true)]  # Le paramètre est obligatoire
-    [string]$UserName              # Nom de l'usager à rechercher
-)
+# Demande de saisie du nom de l'usager
+$UserName = Read-Host "Entrez le nom d'usager à rechercher"
 
-# Utilisation de Get-LocalUser pour récupérer le compte local correspondant
+# On utilise Get-LocalUser pour récupérer le compte local correspondant.
 $user = Get-LocalUser -Name $UserName -ErrorAction SilentlyContinue
 
-# Si la variable $user est vide l'usager n'existe pas
+# Si l'usager n'est pas trouvé, on affiche un message d'erreur.
 if ($null -eq $user) {
-    Write-Host "Usager non trouve !"
+    Write-Host "Usager non trouvé !"
 }
 else {
-    # Affichage du nom de l'usager
+    # Affichage du nom de l'usager et de la date/heure de sa dernière connexion.
     Write-Host "Usager: $($user.Name)"
-    # Affichage de la date et heure de la dernière connexion
     Write-Host "Dernière connexion: $($user.LastLogon)"
 }
