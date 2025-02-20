@@ -1,5 +1,5 @@
 # Définition du chemin du fichier contenant la liste des utilisateurs
-$fichier = "C:\Users\Downloads\ListeUsagers.usr"
+$fichier = "C:\Users\kurom\Downloads\ListeUsagers.usr"
 
 # Vérifie si le fichier ListeUsagers.usr existe
 if (-not (Test-Path $fichier)) {
