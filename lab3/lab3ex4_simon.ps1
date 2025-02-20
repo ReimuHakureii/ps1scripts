@@ -1,6 +1,9 @@
 # Demande de saisie du nom de l'usager à supprimer
 $UserName = Read-Host "Entrez le nom d'usager à supprimer"
 
+# Importation des fonctions pour gérer les boîtes de dialogue
+Add-Type -AssemblyName System.Windows.Forms
+
 # Récupération du compte usager.
 $user = Get-LocalUser -Name $UserName -ErrorAction SilentlyContinue
 
