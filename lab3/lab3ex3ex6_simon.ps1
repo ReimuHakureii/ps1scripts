@@ -34,7 +34,7 @@ foreach ($ligne in $lignes) {
         # Créer le compte local avec les propriétés demandées.
         New-LocalUser -Name $UserName -FullName $FullName -Description $Description -Password $password -PasswordNeverExpires -AccountNeverExpires -UserMayNotChangePassword
 
-        # Ajouter l'usager au groupe spécifié
+        # Ajouter l'usager au groupe spécifié | > EXERCICE 6 <
         Add-LocalGroupMember -Group "Users" -Member $UserName
 
         Write-Host "Compte '$UserName' créé et ajouté au groupe '$Groupe'."
@@ -42,7 +42,7 @@ foreach ($ligne in $lignes) {
     else {
         Write-Host "Le compte '$UserName' existe déjà. Aucune action effectuée."
     }
-    # Créer le groupe s'il n'existe pas
+    # Créer le groupe s'il n'existe pas | > EXERCICE 6 <
     $existingGroup = Get-LocalGroup -Name $Groupe -ErrorAction SilentlyContinue
     if ($null -eq $existingGroup) {
         New-LocalGroup -Name $Groupe
