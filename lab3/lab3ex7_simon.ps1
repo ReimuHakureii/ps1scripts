@@ -9,7 +9,7 @@ if ($null -eq $user) {
 }
 
 # Liste des groupes des groupes à vérifier
-$groupesCibles = @("Administrateurs", "Users", "Invités", "Visiteurs", "Comptables")
+$groupesCibles = @("Administrateurs", "Utilisateurs", "Invités", "Visiteurs", "Comptables")
 $userGroupMembership = @()
 
 # Vérifier si l'usager est membre des groupes cibles
