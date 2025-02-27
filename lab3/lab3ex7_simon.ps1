@@ -1,32 +1,38 @@
 # Demander le nom de l'usager à rechercher
-$UserName = Read-Host "Entrez le nom de l'usager à rechercher"
+$username = Read-Host "Entrez le nom de l'usager à rechercher"
 
-# Vérifier si l'utilisateur existe
-$user = Get-LocalUser -Name $UserName -ErrorAction SilentlyContinue
-if ($null -eq $user) {
-    Write-Host "Usager '$UserName' non existant."
+# Vérifier que l'usager existe
+$user = Get-LocalUser -Name $username -ErrorAction SilentlyContinue
+if (!$user) {
+    Write-Host "L'usager '$username' n'existe pas." -ForegroundColor Red
     exit
 }
 
-# Liste des groupes des groupes à vérifier
-$groupesCibles = @("Administrateurs", "Utilisateurs", "Invités", "Visiteurs", "Comptables")
-$userGroupMembership = @()
+# Définir la liste des groupes locaux à vérifier
+$groupes = @("Administrateurs", "Utilisateurs", "Invités", "Visiteurs", "Comptables")
+$userGroupes = @()
 
-# Vérifier si l'usager est membre des groupes cibles
-foreach ($grp in $groupesCibles) {
-    $group = Get-LocalGroup -Name $grp -ErrorAction SilentlyContinue
-    if ($group) {
-        $membres = Get-LocalGroupMember -Group $grp -ErrorAction SilentlyContinue
-        if ($membres -and ($membres | Where-Object { $_.Name -eq $UserName })) {
-            $userGroupMembership += $grp
+# Pour chacun des groupes, vérifier si l'usager en fait partie
+foreach ($groupe in $groupes) {
+    # Récupérer les membres du groupe (en cas d'erreur, on passe au groupe suivant)
+    $membres = Get-LocalGroupMember -Group $groupe -ErrorAction SilentlyContinue
+    if ($membres) {
+        foreach ($membre in $membres) {
+            # Comparaison : on teste si le nom du membre correspond exactement ou se termine par "\$username"
+            if ($membre.Name -eq $username -or $membre.Name -like "*\$username") {
+                $userGroupes += $groupe
+                break  # inutile de continuer à parcourir ce groupe
+            }
         }
     }
 }
 
-# Afficher les résultats
-if ($userGroupMembership.Count -eq 0) {
-    Write-Host "L'usager '$UserName' n'est membre d'aucun groupe cible."
+# Afficher le résultat
+Write-Host "`nL'usager '$username' fait partie des groupes suivants :"
+if ($userGroupes.Count -eq 0) {
+    Write-Host "Aucun des groupes vérifiés."
 } else {
-    Write-Host "L'usager '$UserName' est membre des groupes suivants :"
-    $userGroupMembership | ForEach-Object { Write-Host "- $_" }
+    foreach ($g in $userGroupes) {
+        Write-Host "- $g"
+    }
 }
