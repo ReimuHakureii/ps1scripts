@@ -1,2 +1,2 @@
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
-"DisallowShaking"=dword:00000001
+"DisallowShaking"=dword:00000000
