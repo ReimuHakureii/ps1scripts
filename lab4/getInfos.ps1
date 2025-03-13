@@ -7,12 +7,11 @@ if ([string]::IsNullOrEmpty($username)) {
 }
 
 
-# Utilisation de Read-Host (obligatoire)
-$username = Read-Host "Entrez le nom d'utilisateur"
+# Utilisation de Read-Host pour saisir le nom d'utilisateur
+### $username = Read-Host "Entrez le nom d'utilisateur"
 
 # Tentative de récupération des informations de l'utilisateur
 try {
-    # On utilise Get-LocalUser, disponible sur Windows 10 et versions ultérieures
     $user = Get-LocalUser -Name $username -ErrorAction Stop
 } catch {
     "Utilisateur introuvable." | Out-File -FilePath "infos_$username.log" -Encoding UTF8
